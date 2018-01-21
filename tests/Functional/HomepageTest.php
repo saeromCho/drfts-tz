@@ -15,6 +15,22 @@ class HomepageTest extends BaseTestCase
         $this->assertContains('SlimFramework', (string)$response->getBody());
         $this->assertNotContains('Hello', (string)$response->getBody());
     }
+    
+    public function testReadAjax() {
+        $response = $this->runApp('GET', '/read');
+        
+        $this->assertEquals(200, $response->getStatusCode());
+        
+        $values = json_decode($response);
+        $this->assertNotNull($values);
+    }
+    
+    public function testWriteAjax() {
+        $response = $this->runApp('POST', '/write');
+        
+        
+        $this->assertEquals(200, $response->getStatusCode());
+    }
 
     /**
      * Test that the index route with optional name argument returns a rendered greeting
